@@ -1,0 +1,60 @@
+<html>
+
+<head>
+<title>Nuage TestApp</title>
+<script>
+function accessFunc() {
+	var name=document.getElementById("name").value;
+	var id=document.getElementById("nid").value;
+}
+function searchFunc() {
+	var fname=document.getElementById("fnam").value;
+	var mysql      = require('mysql');
+	var connection = mysql.createConnection({
+  		host     : '127.0.0.1',
+		user     : 'root',
+		password : '12345',
+		database : 'tut_db'
+	});
+	function getValue(id, callback) {
+		connection.connect();
+		connection.query('SELECT * from tab', function(err, rows, fields) {
+			if (!err) {
+		    		callback(null, rows);
+  			}
+		  	else
+				callback(err);
+		});
+		connection.end();
+	}
+	getValue(1, function(status, resp) {
+		document.getElementById("result").value=resp[1].name;
+		return;
+	});	
+}
+</script>
+</head>
+<body>
+
+<form method="post" action="">
+<h2> Login</h2>
+<label>ID</label>
+<input id="nid" type="text" name="textbox" value="" />
+<label>Name</label>
+<input id="name" type="text" name="textbox" value="" />
+<button type="button" onclick="accessFunc()">Submit</button>
+ </form>
+
+<form action="dform.asp" method="get">
+  <h2>Search</h2>
+  Enter the search item <input id="fnam" type="text" name="fname">
+ <button type="button" onclick="searchFunc()">Submit</button>
+  </form>
+<br>
+<form name="search" method="post" action="">
+<label>Result </label>
+<input id="result" type="text" name="textbox" value="" />
+</form>
+
+</body>
+</html>
