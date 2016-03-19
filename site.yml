@@ -1,0 +1,9 @@
+---
+- name: Install MySQL and Nginx
+  hosts: wserver
+  remote_user: root
+  
+  roles:
+    - common
+    - mysql
+    - nginx
