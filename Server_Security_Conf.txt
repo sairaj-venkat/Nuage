@@ -1,0 +1,11 @@
+// Config commands on the server for security purposes.
+
+iptables -A INPUT -p tcp -s 172.26.31.62 --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -p tcp -s 172.26.31.62 --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+iptables -P INPUT DROP
+iptables -P OUTPUT DROP
+sudo iptables-persistent save
+sudo iptables-persistent reload
+
+// Detailed description of the commands are mentioned in the documentation file.
